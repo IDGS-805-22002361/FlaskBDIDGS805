@@ -1,8 +1,3 @@
-import os
-from re import DEBUG
-
-from sqlalchemy import crate_engine
-
 class Config(object):
     SECRET_KEY = "ClaveSecreta"
     SESSION_COOKIE_SECURE=False
