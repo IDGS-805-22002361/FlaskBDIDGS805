@@ -1,0 +1,45 @@
+{% extends "layout.html" %} {% block container %}
+<div class="group py-32 relative overflow-x-auto sm:rounded-lg">
+  <div
+    class="relative bg-neutral-primary-soft max-w-xs w-full p-6 border border-default rounded-base shadow-xs"
+  >
+    <div class="flex flex-col items-center">
+      <img
+        class="w-24 h-24 mb-6 rounded-full"
+        src="{{url_for('static',filename='img/usuario.png')}}"
+        alt="Bonnie image"
+      />
+      <h5 class="mb-0.5 text-xl font-semibold tracking-tight text-heading">
+        Nombre: {{nombre}} {{apellidos}}
+      </h5>
+      <h3 class="mb-2 text-2xl font-semibold tracking-tight text-heading">
+        Correo: {{email}}
+      </h3>
+      <h3 class="mb-2 text-2xl font-semibold tracking-tight text-heading">
+        Telefono: {{telefono}}
+      </h3>
+      <!-- <span class="text-sm text-body">Visual Designer</span> -->
+      <form method="POST" action="{{ url_for('eliminar') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+        <input type="hidden" name="id" value="{{ form.id.data }}" />
+        <div class="flex mt-4 md:mt-6 gap-4">
+          <button
+            type="submit"
+            class="inline-flex items-center rounded-base border border-transparent bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-strong"
+          >
+            Eliminar
+          </button>
+        </div>
+      </form>
+      <div class="flex mt-4 md:mt-6 gap-4">
+        <!-- <button
+          type="button"
+          class="inline-flex self-start w-auto text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+        >
+          Message
+        </button> -->
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

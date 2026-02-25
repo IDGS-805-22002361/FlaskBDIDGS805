@@ -2,14 +2,13 @@
 container %}
 <div class="w-full max-w-xl p-6">
   <h1 class="mb-6 text-2xl font-semibold text-heading">Agregar Alumno</h1>
-
   <form
     method="POST"
-    action="{{ url_for('alumnos') }}"
+    action="{{ url_for('modificar') }}"
     class="space-y-4 rounded-base border border-default bg-neutral-primary-soft p-5"
   >
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-
+    <input type="hidden" name="id" value="{{ form.id.data }}" />
     {{ macros.datos('nombre', 'Nombre completo') }} {{ macros.datos('apellidos',
     'Apellidos') }} {{ macros.datos('email', 'Correo electronico', 'email') }}
     {{ macros.datos('telefono', 'Telefono') }}

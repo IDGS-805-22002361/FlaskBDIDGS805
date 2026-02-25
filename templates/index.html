@@ -22,6 +22,7 @@
           <th scope="col" class="px-6 py-3 font-medium">Nombre</th>
           <th scope="col" class="px-6 py-3 font-medium">Apellido</th>
           <th scope="col" class="px-6 py-3 font-medium">Email</th>
+          <th scope="col" class="px-6 py-3 font-medium">Telefono</th>
           <th scope="col" class="px-6 py-3 font-medium">Fecha Registro</th>
           <th scope="col" class="px-6 py-3 font-medium">Acciones</th>
         </tr>
@@ -36,20 +37,21 @@
             {{ alumno.id }}
           </th>
           <td class="px-6 py-4">{{ alumno.nombre }}</td>
-          <td class="px-6 py-4">{{ alumno.apaterno }}</td>
+          <td class="px-6 py-4">{{ alumno.apellidos }}</td>
           <td class="px-6 py-4">{{ alumno.email }}</td>
+          <td class="px-6 py-4">{{ alumno.telefono }}</td>
           <td class="px-6 py-4">{{ alumno.creted_date }}</td>
           <td class="px-6 py-4">
             <div class="flex flex-wrap gap-2">
               <a
-                href="#"
+                href="/modificar?id={{ alumno.id }}"
                 class="rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors"
               >
                 Editar
               </a>
 
               <a
-                href="#"
+                href="/eliminar?id={{ alumno.id }}"
                 class="rounded-md bg-red-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-red-700 transition-colors"
               >
                 Eliminar
