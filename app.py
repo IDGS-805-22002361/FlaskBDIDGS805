@@ -6,6 +6,9 @@ from flask_wtf.csrf import CSRFProtect
 import forms
 
 from config import DevelopmentConfig
+
+from maestros.routes import maestros
+
 from models import db, Alumnos
 
 from flask_migrate import Migrate
@@ -13,6 +16,7 @@ from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
+app.register_blueprint(maestros)
 db.init_app(app)
 migrate=Migrate(app, db)
 

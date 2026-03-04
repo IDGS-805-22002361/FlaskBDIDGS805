@@ -1,6 +1,13 @@
-{%macro datos(name,placeholder,type='text')%}
+{%macro datos(name,placeholder,type='text', value='')%}
 
-<p><input name="{{name}}" type="{{type}}" placeholder="{{placeholder}}" /></p>
+<p>
+  <input
+    name="{{name}}"
+    type="{{type}}"
+    placeholder="{{placeholder}}"
+    value="{{value}}"
+  />
+</p>
 
 {%endmacro%} {%macro camposNuevos(field) %}
 <h2 class="font-bold text-gray-800">{{field.label}}</h2>

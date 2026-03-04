@@ -22,3 +22,21 @@ class UserForm(Form):
         validators.DataRequired(message="El campo es requerido"),
         validators.NumberRange(min=1000000000, max=10000000000, message="Imgrese valor valido")
     ])
+    
+class MaestrosForm(Form):
+    matricula=IntegerField("Matricula", [
+        validators.DataRequired(message="El campo es requerido"),
+        validators.NumberRange(min=1000, max=10000, message="Imgrese valor valido")
+    ])
+    nombre=StringField("Nombre",[
+        validators.DataRequired(message="El campo es requerido"),
+    ])
+    apellidos=StringField("Apellidos", [
+        validators.DataRequired(message="El campo es requerido")
+    ])
+    especialidad=StringField("Especialidad",[
+        validators.DataRequired(message="El campo es requerido")
+    ])
+    email=EmailField("Correo", [
+        validators.Email(message="Ingresa correo valido")
+    ])

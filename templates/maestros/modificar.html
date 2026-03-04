@@ -1,0 +1,35 @@
+{% extends "layout.html" %} {% import "_macros.html" as macros %} {% block
+container %}
+<div
+  class="flex items-center mt-8 justify-center rounded-base border border-default bg-neutral-primary-soft p-5 mx-auto shadow-xs"
+>
+  <div class="w-full max-w-xl p-6">
+    <h1 class="mb-6 text-2xl font-semibold text-heading">Editar Maestros</h1>
+    <form
+      method="POST"
+      action="{{ url_for('maestros.modificar') }}"
+      class="space-y-4"
+    >
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+      <input type="hidden" name="matricula" value="{{ form.matricula.data }}" />
+      {{ macros.datos('nombre', 'Nombre completo', value=form.nombre.data) }} {{
+      macros.datos('apellidos', 'Apellidos', value=form.apellidos.data) }} {{
+      macros.datos('especialidad', 'Especialidad', value=form.especialidad.data)
+      }} {{ macros.datos('email', 'Correo electronico', type='email',
+      value=form.email.data) }}
+      <button
+        type="submit"
+        class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+      >
+        Guardar
+      </button>
+      <a
+        href="{{ url_for('maestros.maestro') }}"
+        class="bg-red-500 text-white box-border border border-transparent hover:bg-red-600 focus:ring-4 focus:ring-red-300 shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+      >
+        Cancelar
+      </a>
+    </form>
+  </div>
+</div>
+{% endblock %}
