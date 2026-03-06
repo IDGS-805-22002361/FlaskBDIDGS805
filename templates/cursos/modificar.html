@@ -1,0 +1,51 @@
+{% extends "layout.html" %} {% import "_macros.html" as macros %} {% block
+container %}
+<div class="w-full max-w-xl p-6">
+  <h1 class="mb-6 text-2xl font-semibold text-heading">Modificar Curso</h1>
+
+  <form
+    method="POST"
+    action="{{ url_for('cursos.modificar', id=form.id.data) }}"
+    class="space-y-4 rounded-base border border-default bg-neutral-primary-soft p-5 shadow-xs mx-auto"
+  >
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+    {{ macros.datos('nombre', 'Nombre', value=form.nombre.data) }} {{
+    macros.datos('descripcion', 'Descripción', value=form.descripcion.data) }}
+    <!-- select de maestros -->
+    <div class="mb-4">
+      <label for="maestro_id" class="block text-sm font-medium text-heading">
+        Maestro
+      </label>
+      <select
+        id="maestro_id"
+        name="maestro_id"
+        class="text-sm block w-full p-2.5"
+      >
+        <option value="">Seleccione un maestro</option>
+        {% for maestro in maestros %}
+        <option 
+          value="{{ maestro.matricula }}" 
+          {{ 'selected' if maestro.matricula|string == form.maestro_id.data|string else '' }}
+        >
+          {{ maestro.nombre }} {{ maestro.apellidos }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button
+      type="submit"
+      class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+    >
+      Guardar
+    </button>
+    <a
+      href="{{ url_for('cursos.index') }}"
+      class="bg-red-500 text-white box-border border border-transparent hover:bg-red-600 focus:ring-4 focus:ring-red-300 shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none"
+    >
+      Cancelar
+    </a>
+  </form>
+</div>
+{% endblock %}

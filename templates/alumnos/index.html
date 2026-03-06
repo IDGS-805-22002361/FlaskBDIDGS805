@@ -1,10 +1,10 @@
 {% extends "layout.html" %} {% block container %}
 <div class="w-full max-w-6xl p-6">
   <div class="mb-4 flex items-center justify-between gap-3">
-    <h1 class="text-2xl font-semibold text-heading">Listado de Maestros</h1>
+    <h1 class="text-2xl font-semibold text-heading">Listado de Alumnos</h1>
     <a
-      href="{{ url_for('maestros.crear') }}"
-      class="inline-flex items-center rounded-base border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white"
+      href="{{ url_for('alumnos.alumnos_crear') }}"
+      class="inline-flex items-center rounded-base border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-strong"
     >
       Agregar
     </a>
@@ -18,46 +18,47 @@
         class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default"
       >
         <tr>
-          <!-- <th scope="col" class="px-6 py-3 font-medium">ID</th> -->
+          <th scope="col" class="px-6 py-3 font-medium">ID</th>
           <th scope="col" class="px-6 py-3 font-medium">Nombre</th>
           <th scope="col" class="px-6 py-3 font-medium">Apellido</th>
-          <th scope="col" class="px-6 py-3 font-medium">Especialidad</th>
           <th scope="col" class="px-6 py-3 font-medium">Email</th>
-          <!-- <th scope="col" class="px-6 py-3 font-medium">Fecha Registro</th> -->
+          <th scope="col" class="px-6 py-3 font-medium">Telefono</th>
+          <th scope="col" class="px-6 py-3 font-medium">Fecha Registro</th>
           <th scope="col" class="px-6 py-3 font-medium">Acciones</th>
         </tr>
       </thead>
       <tbody>
-        {% for maes in maestros %}
+        {% for alumno in alumnos %}
         <tr class="bg-neutral-primary border-b border-default">
-          <!-- <th
+          <th
             scope="row"
             class="px-6 py-4 font-medium text-heading whitespace-nowrap"
           >
-            {{ maes.matricula }}
-          </th> -->
-          <td class="px-6 py-4">{{ maes.nombre }}</td>
-          <td class="px-6 py-4">{{ maes.apellidos }}</td>
-          <td class="px-6 py-4">{{ maes.especialidad }}</td>
-          <td class="px-6 py-4">{{ maes.email }}</td>
+            {{ alumno.id }}
+          </th>
+          <td class="px-6 py-4">{{ alumno.nombre }}</td>
+          <td class="px-6 py-4">{{ alumno.apellidos }}</td>
+          <td class="px-6 py-4">{{ alumno.email }}</td>
+          <td class="px-6 py-4">{{ alumno.telefono }}</td>
+          <td class="px-6 py-4">{{ alumno.creted_date }}</td>
           <td class="px-6 py-4">
             <div class="flex flex-wrap gap-2">
               <a
-                href="/maestros/modificar?matricula={{ maes.matricula }}"
-                class="rounded-md bg-yellow-600 text-white border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-yellow-400 transition-colors"
+                href="{{ url_for('alumnos.modificar', id=alumno.id) }}"
+                class="rounded-md bg-yellow-600 border border-gray-300 px-3 py-1.5 text-xs font-medium text-white hover:bg-yellow-700 transition-colors"
               >
                 Editar
               </a>
 
               <a
-                href="/maestros/eliminar?matricula={{ maes.matricula }}"
+                href="{{ url_for('alumnos.alumnos_eliminar', id=alumno.id) }}"
                 class="rounded-md bg-red-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-red-700 transition-colors"
               >
                 Eliminar
               </a>
               <a
-                href="/maestros/detalles?matricula={{ maes.matricula }}"
-                class="rounded-md bg-blue-600 text-white border border-default px-3 py-1 text-xs font-medium text-heading hover:bg-blue-700 transition-colors"
+                href="{{ url_for('alumnos.alumnos_detalles', id=alumno.id) }}"
+                class="rounded-md bg-blue-600 border border-default px-3 py-1 text-xs font-medium text-white hover:bg-blue-700 transition-colors"
               >
                 Detalles
               </a>

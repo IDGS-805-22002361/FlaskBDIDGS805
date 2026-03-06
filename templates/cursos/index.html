@@ -1,10 +1,10 @@
 {% extends "layout.html" %} {% block container %}
 <div class="w-full max-w-6xl p-6">
   <div class="mb-4 flex items-center justify-between gap-3">
-    <h1 class="text-2xl font-semibold text-heading">Listado de Alumnos</h1>
+    <h1 class="text-2xl font-semibold text-heading">Listado de Cursos</h1>
     <a
-      href="{{ url_for('alumnos') }}"
-      class="inline-flex items-center rounded-base border border-transparent bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-strong"
+      href="{{ url_for('cursos.crear') }}"
+      class="inline-flex items-center rounded-base border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white"
     >
       Agregar
     </a>
@@ -18,47 +18,46 @@
         class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default"
       >
         <tr>
-          <th scope="col" class="px-6 py-3 font-medium">ID</th>
+          <!-- <th scope="col" class="px-6 py-3 font-medium">ID</th> -->
           <th scope="col" class="px-6 py-3 font-medium">Nombre</th>
-          <th scope="col" class="px-6 py-3 font-medium">Apellido</th>
-          <th scope="col" class="px-6 py-3 font-medium">Email</th>
-          <th scope="col" class="px-6 py-3 font-medium">Telefono</th>
-          <th scope="col" class="px-6 py-3 font-medium">Fecha Registro</th>
+          <th scope="col" class="px-6 py-3 font-medium">Descripción</th>
+          <th scope="col" class="px-6 py-3 font-medium">Maestro</th>
+          <!-- <th scope="col" class="px-6 py-3 font-medium">Fecha Registro</th> -->
           <th scope="col" class="px-6 py-3 font-medium">Acciones</th>
         </tr>
       </thead>
       <tbody>
-        {% for alumno in alumnos %}
+        {% for cur in cursos %}
         <tr class="bg-neutral-primary border-b border-default">
-          <th
+          <!-- <th
             scope="row"
             class="px-6 py-4 font-medium text-heading whitespace-nowrap"
           >
-            {{ alumno.id }}
-          </th>
-          <td class="px-6 py-4">{{ alumno.nombre }}</td>
-          <td class="px-6 py-4">{{ alumno.apellidos }}</td>
-          <td class="px-6 py-4">{{ alumno.email }}</td>
-          <td class="px-6 py-4">{{ alumno.telefono }}</td>
-          <td class="px-6 py-4">{{ alumno.creted_date }}</td>
+            {{ cur.id }}
+          </th> -->
+          <td class="px-6 py-4">{{ cur.nombre }}</td>
+          <td class="px-6 py-4">{{ cur.descripcion }}</td>
+          <td class="px-6 py-4">
+            {{ cur.maestro.nombre }} {{ cur.maestro.apellidos }}
+          </td>
           <td class="px-6 py-4">
             <div class="flex flex-wrap gap-2">
               <a
-                href="/modificar?id={{ alumno.id }}"
-                class="rounded-md border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                href="{{ url_for('cursos.modificar', id=cur.id) }}"
+                class="rounded-md bg-yellow-600 text-white border border-gray-300 px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-yellow-400 transition-colors"
               >
                 Editar
               </a>
 
               <a
-                href="/eliminar?id={{ alumno.id }}"
+                href="{{ url_for('cursos.eliminar', id=cur.id) }}"
                 class="rounded-md bg-red-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-red-700 transition-colors"
               >
                 Eliminar
               </a>
               <a
-                href="detalles?id={{ alumno.id }}"
-                class="rounded-base border border-default px-3 py-1 text-xs font-medium text-heading hover:bg-neutral-secondary-soft"
+                href="{{ url_for('cursos.detalles', id=cur.id) }}"
+                class="rounded-md bg-blue-600 text-white border border-default px-3 py-1 text-xs font-medium text-heading hover:bg-blue-700 transition-colors"
               >
                 Detalles
               </a>
@@ -68,7 +67,7 @@
         {% else %}
         <tr class="bg-neutral-primary">
           <td class="px-6 py-4 text-center" colspan="6">
-            No hay registros de alumnos.
+            No hay registros de cursos.
           </td>
         </tr>
         {% endfor %}

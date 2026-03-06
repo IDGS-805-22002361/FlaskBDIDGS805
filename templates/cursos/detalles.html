@@ -1,0 +1,140 @@
+{% extends "layout.html" %} {% block container %}
+
+<div class="w-full max-w-4xl mx-auto p-6">
+  <div class="mb-6 flex items-center justify-between gap-3">
+    <h1 class="text-2xl font-semibold text-heading">
+      Detalles del Curso: <span class="text-brand">{{ curso.nombre }}</span>
+    </h1>
+    <a
+      href="{{ url_for('cursos.index') }}"
+      class="items-center rounded-base border border-gray-300 bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
+    >
+      Volver a Cursos
+    </a>
+  </div>
+
+  <div
+    class="mb-8 rounded-base border border-default bg-neutral-primary-soft p-5 shadow-xs"
+  >
+    <h2
+      class="text-lg font-semibold text-heading mb-4 border-b border-default pb-2"
+    >
+      Información General
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-body">
+      <div>
+        <span class="block font-medium text-heading">Materia:</span>
+        {{ curso.nombre }}
+      </div>
+      <div>
+        <span class="block font-medium text-heading">Descripción:</span>
+        {{ curso.descripcion }}
+      </div>
+      <div>
+        <span class="block font-medium text-heading">Maestro Asignado:</span>
+        {{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="mb-8 rounded-base border border-default bg-neutral-primary-soft p-5 shadow-xs"
+  >
+    <h2 class="text-lg font-semibold text-heading mb-4">Inscribir Alumno</h2>
+    <form
+      method="POST"
+      action="{{ url_for('cursos.detalles', id=curso.id) }}"
+      class="flex flex-col sm:flex-row gap-4 items-end"
+    >
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+      <div class="flex-grow w-full">
+        <label
+          for="alumno_id"
+          class="block text-sm font-medium text-heading mb-1"
+        >
+          Selecciona un alumno disponible
+        </label>
+        <select
+          id="alumno_id"
+          name="alumno_id"
+          class="text-sm block w-full p-2.5 rounded-base border border-default bg-white"
+          required
+        >
+          <option value="">Seleccione un alumno...</option>
+          {% for alumno in alumnos_disponibles %} {% if alumno not in
+          curso.alumnos %}
+          <option value="{{ alumno.id }}">
+            {{ alumno.nombre }} {{ alumno.apellidos }}
+          </option>
+          {% endif %} {% endfor %}
+        </select>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full sm:w-auto text-white bg-green-600 box-border border border-transparent hover:bg-green-700 focus:ring-4 focus:ring-green-300 shadow-xs font-medium leading-5 rounded-base text-sm px-6 py-2.5 focus:outline-none transition-colors"
+      >
+        Agregar
+      </button>
+    </form>
+  </div>
+
+  <h2 class="text-lg font-semibold text-heading mb-4">
+    Alumnos Inscritos ({{ curso.alumnos|length }})
+  </h2>
+  <div
+    class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default"
+  >
+    <table class="w-full text-sm text-left rtl:text-right text-body">
+      <thead
+        class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default"
+      >
+        <tr>
+          <th scope="col" class="px-6 py-3 font-medium">Nombre del Alumno</th>
+          <th scope="col" class="px-6 py-3 font-medium text-center">
+            Acciones
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for alumno in curso.alumnos %}
+        <tr
+          class="bg-neutral-primary border-b border-default hover:bg-neutral-secondary-soft transition-colors"
+        >
+          <td class="px-6 py-4 font-medium">
+            {{ alumno.nombre }} {{ alumno.apellidos }}
+          </td>
+          <td class="px-6 py-4 text-center">
+            <form
+              method="POST"
+              action="{{ url_for('cursos.remover_alumno', curso_id=curso.id, alumno_id=alumno.id) }}"
+              class="inline"
+            >
+              <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ csrf_token() }}"
+              />
+              <button
+                type="submit"
+                class="text-red-600 hover:text-red-800 text-xs font-medium underline"
+              >
+                Dar de baja
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr class="bg-neutral-primary">
+          <td class="px-6 py-8 text-center text-gray-500" colspan="2">
+            No hay ningún alumno inscrito en este curso todavía.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}
